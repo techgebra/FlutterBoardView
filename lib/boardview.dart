@@ -324,16 +324,23 @@ class BoardViewState extends State<BoardView> with AutomaticKeepAliveClientMixin
       itemBuilder: (BuildContext context, int index) {
         if (widget.lists![index].boardView == null) {
           widget.lists![index] = BoardList(
-            items: widget.lists![index].items,
+           items: widget.lists![index].items,
             headerBackgroundColor: widget.lists![index].headerBackgroundColor,
             backgroundColor: widget.lists![index].backgroundColor,
             footer: widget.lists![index].footer,
+            headerBorder: widget.lists![index].headerBorder,
+            headerHeading: widget.lists![index].headerHeading,
+            addCard: widget.lists![index].addCard,
+            cardCount: widget.lists![index].cardCount,
             header: widget.lists![index].header,
             boardView: this,
             draggable: widget.lists![index].draggable,
             onDropList: widget.lists![index].onDropList,
             onTapList: widget.lists![index].onTapList,
+            onTapfooter: widget.lists![index].onTapfooter,
             onStartDragList: widget.lists![index].onStartDragList,
+            loadMoreWidget:widget.lists![index].loadMoreWidget,
+
           );
         }
         if (widget.lists![index].index != index) {
@@ -342,13 +349,19 @@ class BoardViewState extends State<BoardView> with AutomaticKeepAliveClientMixin
             headerBackgroundColor: widget.lists![index].headerBackgroundColor,
             backgroundColor: widget.lists![index].backgroundColor,
             footer: widget.lists![index].footer,
+            headerBorder: widget.lists![index].headerBorder,
+            headerHeading: widget.lists![index].headerHeading,
+            addCard: widget.lists![index].addCard,
+            cardCount: widget.lists![index].cardCount,
             header: widget.lists![index].header,
             boardView: this,
             draggable: widget.lists![index].draggable,
-            index: index,
             onDropList: widget.lists![index].onDropList,
             onTapList: widget.lists![index].onTapList,
+            onTapfooter: widget.lists![index].onTapfooter,
             onStartDragList: widget.lists![index].onStartDragList,
+            loadMoreWidget:widget.lists![index].loadMoreWidget,
+
           );
         }
 
