@@ -1,15 +1,17 @@
 import 'package:boardview/board_item.dart';
 import 'package:boardview/boardview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 typedef void OnDropList(int? listIndex, int? oldListIndex);
 typedef void OnTapList(int? listIndex);
 typedef void OnStartDragList(int? listIndex);
 typedef void OnTapFooter(ScrollController? scrollController);
+typedef void OnTaploadMore(ScrollController? scrollController);
 
 class BoardList extends StatefulWidget {
   final OnTapFooter? onTapfooter;
+  final OnTaploadMore? onTaploadMore;
   final List<Widget>? header;
   final Widget? footer;
   final List<BoardItem>? items;
@@ -44,6 +46,7 @@ class BoardList extends StatefulWidget {
     this.addCard,
     this.cardCount,
     this.loadMoreWidget,
+    this.onTaploadMore,
   }) : super(key: key);
 
   final int? index;
@@ -191,21 +194,40 @@ class BoardListState extends State<BoardList>
       );
     }
 
-    if(widget.loadMoreWidget!=null){
-      listWidgets.add(
-        widget.loadMoreWidget!
-      );
+    if (widget.loadMoreWidget != null) {
+      listWidgets.add(Row(
+        children: [
+          if (widget.footer != null)
+            Expanded(
+              child: InkWell(
+                  onTap: () {
+                    if (widget.onTapfooter != null) {
+                      widget.onTapfooter!(boardListController);
+                    }
+                  },
+                  child: widget.footer!),
+            ),
+          if (widget.loadMoreWidget != null)
+            InkWell(
+                onTap: () {
+                  if (widget.onTaploadMore != null) {
+                    widget.onTaploadMore!(boardListController);
+                  }
+                },
+                child: widget.loadMoreWidget!),
+        ],
+      ));
     }
 
-    if (widget.footer != null) {
-      listWidgets.add(InkWell(
-          onTap: () {
-            if (widget.onTapfooter != null) {
-              widget.onTapfooter!(boardListController);
-            }
-          },
-          child: widget.footer!));
-    }
+    // if (widget.footer != null) {
+    //   listWidgets.add(InkWell(
+    //       onTap: () {
+    //         if (widget.onTapfooter != null) {
+    //           widget.onTapfooter!(boardListController);
+    //         }
+    //       },
+    //       child: widget.footer!));
+    // }
 
     Color? backgroundColor = Color.fromARGB(255, 255, 255, 255);
 
